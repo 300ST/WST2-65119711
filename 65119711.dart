@@ -1,95 +1,78 @@
-
 void main() {
-  Person owner = Person('John Cena');
-
-  Engine engine = Engine('V6', 200);
-
-  Car car = Car('Toyota', 'Camry', owner, engine);
+  var owner = Owner(name: 'John Cena');
+  var engine = Engine(model: 'V6', speed: 120);
+  var car = Car(
+    brand: 'Toyota',
+    model: 'Corolla',
+    color: 'Blue',
+    owner: owner,
+    engine: engine,
+  );
 
   car.displayCarInfo();
   car.run();
 
-  Honda honda = Honda('Honda', 'Civic', owner, engine, 'Red');
-
+  var honda = Honda('Honda', 'Civic', owner, engine, 'Red');
   honda.displayCarInfo();
   honda.run();
-}
-
-class Person {
-  String _name;
-
-  Person(this._name);
-
-  String get name => _name;
-  set name(String value) => _name = value;
-}
-
-class Engine {
-  String _model;
-  int _speed;
-
-  Engine(this._model, this._speed);
-
-  String get model => _model;
-  set model(String value) => _model = value;
-
-  int get speed => _speed;
-  set speed(int value) => _speed = value;
-
-  void displayEngineInfo() {
-    print('Model: $_model, Speed: $_speed km/h');
-  }
 }
 
 class Car {
   String _brand;
   String _model;
-  Person _owner;
+  String _color;
+  Owner _owner;
   Engine _engine;
 
-  Car(this._brand, this._model, this._owner, this._engine);
-
-  String get brand => _brand;
-  set brand(String value) => _brand = value;
-
-  String get model => _model;
-  set model(String value) => _model = value;
-
-  Person get owner => _owner;
-  set owner(Person value) => _owner = value;
-
-  Engine get engine => _engine;
-  set engine(Engine value) => _engine = value;
+  Car({
+    required String brand,
+    required String model,
+    required String color,
+    required Owner owner,
+    required Engine engine,
+  })  : _brand = brand,
+        _model = model,
+        _color = color,
+        _owner = owner,
+        _engine = engine;
 
   void displayCarInfo() {
-    print(
-        'Car Brand: $_brand, Car Model: $_model, Owner: ${_owner.name}, Engine: ');
+    print('Car Brand: $_brand');
+    print('Car Model: $_model');
+    print('Color: $_color');
+    print('Owner: ${_owner.name}');
+    print('Engine: ');
     _engine.displayEngineInfo();
   }
 
   void run() {
-    print('Running at ${_engine.speed} km/h');
+    print('Speed: ${_engine.speed} km/h');
+  }
+}
+
+class Owner {
+  String name;
+
+  Owner({required this.name});
+}
+
+class Engine {
+  String model;
+  int speed;
+
+  Engine({required this.model, required this.speed});
+
+  void displayEngineInfo() {
+    print('Model: $model');
   }
 }
 
 class Honda extends Car {
-  String _color;
-
-  Honda(String brand, String model, Person owner, Engine engine, this._color)
-      : super(brand, model, owner, engine);
-
-  String get color => _color;
-  set color(String value) => _color = value;
+  Honda(String brand, String model, Owner owner, Engine engine, String color)
+      : super(brand: brand, model: model, color: color, owner: owner, engine: engine);
 
   @override
   void displayCarInfo() {
-    print(
-        'Car Brand: $_brand, Car Model: $_model, Color: $_color, Owner: ${_owner.name}, Engine: ');
-    _engine.displayEngineInfo();
-  }
-
-  @override
-  void run() {
-    print('Running at ${_engine.speed} km/h');
+    super.displayCarInfo();
   }
 }
