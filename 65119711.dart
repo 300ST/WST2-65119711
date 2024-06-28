@@ -1,6 +1,6 @@
 void main() {
   var owner = Owner(name: 'John Cena');
-  var engine = Engine(model: 'V6', speed: 120);
+  var engine = Engine(model: 'V6', speed: 200);
   var car = Car(
     brand: 'Toyota',
     model: 'Corolla',
@@ -10,11 +10,10 @@ void main() {
   );
 
   car.displayCarInfo();
-  car.run();
 
-  var honda = Honda('Honda', 'Civic', owner, engine, 'Red');
+  var hondaEngine = Engine(model: 'V6', speed: 120);
+  var honda = Honda('Honda', 'Civic', owner, hondaEngine, 'Red');
   honda.displayCarInfo();
-  honda.run();
 }
 
 class Car {
@@ -41,11 +40,7 @@ class Car {
     print('Car Model: $_model');
     print('Color: $_color');
     print('Owner: ${_owner.name}');
-    print('Engine: ');
-    _engine.displayEngineInfo();
-  }
-
-  void run() {
+    print('Engine: ${_engine.model}');
     print('Speed: ${_engine.speed} km/h');
   }
 }
@@ -61,18 +56,9 @@ class Engine {
   int speed;
 
   Engine({required this.model, required this.speed});
-
-  void displayEngineInfo() {
-    print('Model: $model');
-  }
 }
 
 class Honda extends Car {
   Honda(String brand, String model, Owner owner, Engine engine, String color)
       : super(brand: brand, model: model, color: color, owner: owner, engine: engine);
-
-  @override
-  void displayCarInfo() {
-    super.displayCarInfo();
-  }
 }
